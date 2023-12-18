@@ -2,6 +2,9 @@
  Teddy360 Project ⭐
 </h1>
 
+## :book: Overview 
+Aplicativo desenvolvido em React-Native, Typescript e Expo, no qual projetei todas as interfaces conforme o Figma. Embora faltem alguns pequenos detalhes para atingir a perfeição, decidi disponibilizá-lo para não atrasar a visualização e os testes.
+
 ### Apresentação 🌠
 
 https://github.com/thomascostta/teddy360/assets/82541529/0ed644c3-ba71-4e00-8e48-27e99894d282
