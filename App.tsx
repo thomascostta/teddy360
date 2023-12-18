@@ -1,20 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useCallback } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useFonts } from "expo-font";
+import { ThemeProvider } from "styled-components";
+
+import { AppProvider } from "./src/hook";
+
+import { defaultTheme } from "./src/theme/default";
+
+import { fonts } from "./src/assets/fonts";
+
+import { Routes } from "./src/routes";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [hasLoadedFonts] = useFonts(fonts);
+
+  const hideSplashScreen = useCallback(async () => {
+    if (hasLoadedFonts) {
+      await SplashScreen.hideAsync();
+    }
+  }, [hasLoadedFonts]);
+
+  useEffect(() => {
+    hideSplashScreen();
+  }, [hideSplashScreen]);
+
+  if (!hasLoadedFonts) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <ThemeProvider theme={defaultTheme}>
+        <StatusBar style="light" backgroundColor="transparent" translucent />
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      </ThemeProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
